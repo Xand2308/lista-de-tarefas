@@ -294,3 +294,12 @@ code {
     border-right-color: var(--border);
   }
 }
+
+.feita{
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+li {
+  cursor: pointer;
+}
