@@ -9,35 +9,69 @@ document.querySelector("#app").innerHTML = `<h1>Minha Lista de Tarefas</h1>
 
 <ul id="lista"></ul>`;
 
-const campo = document.querySelector("#nova-tarefa")
-const botao = document.querySelector("#adicionar")
-const lista = document.querySelector("#lista")
+const campo = document.querySelector("#nova-tarefa");
+const botao = document.querySelector("#adicionar");
+const lista = document.querySelector("#lista");
+
+let tarefas = [];
+
+function salvar() {
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+}
+
+const guardadas = localStorage.getItem("tarefas");
+if (guardadas) {
+  tarefas = JSON.parse(guardadas);
+}
+
+console.log(tarefas);
+
+function mostrarTarefas() {
+  lista.innerHTML = "";
+
+  tarefas.forEach((tarefa, posicao) => {
+    const item = document.createElement("li");
+    item.textContent = tarefa.texto;
+
+    if (tarefa.feita) {
+      item.classList.add("feita");
+    }
+
+    item.addEventListener("click", () => {
+      tarefa.feita = !tarefa.feita;
+      salvar();
+      mostrarTarefas();
+    });
+
+    const remover = document.createElement("button");
+    remover.textContent = "X";
+    remover.addEventListener("click", (evento) => {
+      evento.stopPropagation();
+      tarefas.splice(posicao, 1);
+      salvar();
+      mostrarTarefas();
+    });
+
+    item.appendChild(remover);
+
+    lista.appendChild(item);
+  });
+}
+
+mostrarTarefas();
 
 botao.addEventListener("click", () => {
   const texto = campo.value;
 
   if (texto.trim() === "") {
-    return
+    return;
   }
 
-  const item = document.createElement('li')
+  tarefas.push({ texto: texto, feita: false });
+  salvar();
 
-  const span = document.createElement('span')
-  span.textContent = texto
-  span.addEventListener('click', () => {
-    item.classList.toggle('feita')
-  })
+  const item = document.createElement("li");
+  mostrarTarefas();
 
-  const remover = document.createElement('button')
-  remover.textContent = 'X'
-  remover.addEventListener('click', () => {
-    item.remove()
-  })
-
-  item.appendChild(span)
-  item.appendChild(remover)
-
-  lista.appendChild(item)
-
-  campo.value = ''
-})
+  campo.value = "";
+});
