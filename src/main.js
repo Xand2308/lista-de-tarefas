@@ -12,7 +12,7 @@ document.querySelector('#app').innerHTML = `
     <img src="${viteLogo}" class="vite" alt="Vite logo" />
   </div>
   <div>
-    <h1>Olá, meu primeiro projeto!</h1>
+    <h1>Meu projeto com Vite</h1>
     <p>Estou aprendendo Vite passo a passo!</p>
   </div>
   <button id="counter" type="button" class="counter"></button>
