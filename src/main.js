@@ -4,7 +4,7 @@ document.querySelector("#app").innerHTML = `<h1>Minha Lista de Tarefas</h1>
 <input id="nova-tarefa" type="text" placeholder="Digite uma Tarefa"/>
 
 <button id="adicionar" type="button">
-  Adiconar
+  Adicionar
 </button>
 
 <ul id="lista"></ul>`;
@@ -20,15 +20,24 @@ botao.addEventListener("click", () => {
     return
   }
 
-  const item = document.createElement("li")
-  item.textContent = texto
+  const item = document.createElement('li')
 
-  item.addEventListener("click", () => {
-    item.classList.toggle("feita")
+  const span = document.createElement('span')
+  span.textContent = texto
+  span.addEventListener('click', () => {
+    item.classList.toggle('feita')
   })
 
-  
+  const remover = document.createElement('button')
+  remover.textContent = 'X'
+  remover.addEventListener('click', () => {
+    item.remove()
+  })
+
+  item.appendChild(span)
+  item.appendChild(remover)
+
   lista.appendChild(item)
 
-  campo.value = ""
+  campo.value = ''
 })
