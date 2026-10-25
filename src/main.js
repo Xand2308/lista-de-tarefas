@@ -1,8 +1,6 @@
 import "./style.css";
 document.querySelector("#app").innerHTML = `<h1>Minha Lista de Tarefas</h1>
 
-<button id="tema" type="button">Mudar Tema</button>  
-
 <input id="nova-tarefa" type="text" placeholder="Digite uma Tarefa"/>
 
 <button id="adicionar" type="button">
@@ -149,10 +147,18 @@ botoesFiltro.forEach((botaoFiltro) => {
 
 
 const botaoTema = document.querySelector("#tema");
+
+function atualizarIcone() {
+  const claro = document.body.classList.contains("claro");
+  botaoTema.textContent = claro ? "🌞" : "🌛";
+}
+
+
 botaoTema.addEventListener("click", () => {
   document.body.classList.toggle("claro");
   const claro = document.body.classList.contains("claro");
   localStorage.setItem("tema", claro ? "claro" : "escuro");
+  atualizarIcone();
 });
 
 if(localStorage.getItem("tema") === "claro") {
