@@ -43,6 +43,35 @@ function mostrarTarefas() {
       mostrarTarefas();
     });
 
+
+    item.addEventListener("dblclick", () => {
+      const novoTexto = prompt("Editar tarefa:", tarefa.texto)
+    if (novoTexto === null || novoTexto.trim() === "") {
+      return
+    }
+
+    tarefa.texto = novoTexto
+    salvar()
+    mostrarTarefas()
+    })
+
+    const editar = document.createElement("button")
+    editar.textContent = "✏️"
+    editar.addEventListener("click", (evento) => {
+      evento.stopPropagation()
+      const novoTexto = prompt("Editar tarefa:", tarefa.texto)
+
+      if (novoTexto === null || novoTexto.trim() === "") {
+        return
+      }
+
+      tarefa.texto = novoTexto
+      salvar()
+      mostrarTarefas()
+      })
+      item.appendChild(editar)
+
+
     const remover = document.createElement("button");
     remover.textContent = "X";
     remover.addEventListener("click", (evento) => {
@@ -52,7 +81,11 @@ function mostrarTarefas() {
       mostrarTarefas();
     });
 
-    item.appendChild(remover);
+     const botoes = document.createElement("div");
+    botoes.appendChild(editar);
+    botoes.appendChild(remover);
+    item.appendChild(botoes);
+  
 
     lista.appendChild(item);
   });
