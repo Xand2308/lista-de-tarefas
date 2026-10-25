@@ -43,34 +43,32 @@ function mostrarTarefas() {
       mostrarTarefas();
     });
 
-
     item.addEventListener("dblclick", () => {
-      const novoTexto = prompt("Editar tarefa:", tarefa.texto)
-    if (novoTexto === null || novoTexto.trim() === "") {
-      return
-    }
-
-    tarefa.texto = novoTexto
-    salvar()
-    mostrarTarefas()
-    })
-
-    const editar = document.createElement("button")
-    editar.textContent = "✏️"
-    editar.addEventListener("click", (evento) => {
-      evento.stopPropagation()
-      const novoTexto = prompt("Editar tarefa:", tarefa.texto)
-
+      const novoTexto = prompt("Editar tarefa:", tarefa.texto);
       if (novoTexto === null || novoTexto.trim() === "") {
-        return
+        return;
       }
 
-      tarefa.texto = novoTexto
-      salvar()
-      mostrarTarefas()
-      })
-      item.appendChild(editar)
+      tarefa.texto = novoTexto;
+      salvar();
+      mostrarTarefas();
+    });
 
+    const editar = document.createElement("button");
+    editar.textContent = "✏️";
+    editar.addEventListener("click", (evento) => {
+      evento.stopPropagation();
+      const novoTexto = prompt("Editar tarefa:", tarefa.texto);
+
+      if (novoTexto === null || novoTexto.trim() === "") {
+        return;
+      }
+
+      tarefa.texto = novoTexto;
+      salvar();
+      mostrarTarefas();
+    });
+    item.appendChild(editar);
 
     const remover = document.createElement("button");
     remover.textContent = "X";
@@ -81,20 +79,18 @@ function mostrarTarefas() {
       mostrarTarefas();
     });
 
-     const botoes = document.createElement("div");
+    const botoes = document.createElement("div");
     botoes.appendChild(editar);
     botoes.appendChild(remover);
     item.appendChild(botoes);
-  
 
     lista.appendChild(item);
   });
 }
 
-
 mostrarTarefas();
 
-botao.addEventListener("click", () => {
+function adicionarTarefa() {
   const texto = campo.value;
 
   if (texto.trim() === "") {
@@ -103,9 +99,15 @@ botao.addEventListener("click", () => {
 
   tarefas.push({ texto: texto, feita: false });
   salvar();
-
-  const item = document.createElement("li");
   mostrarTarefas();
 
   campo.value = "";
+}
+
+botao.addEventListener("click", adicionarTarefa);
+
+campo.addEventListener("keydown", (evento) => {
+  if (evento.key === "Enter") {
+    adicionarTarefa();
+  }
 });
