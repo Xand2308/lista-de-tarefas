@@ -1,6 +1,6 @@
 body {
   font-family: system-ui, sans-serif;
-  background: #f3f4f6;
+  background: #1e293b;
   margin: 0;
 }
 
@@ -8,12 +8,13 @@ body {
   max-width: 480px;
   margin: 40px auto;
   padding: 24px;
-  background: white;
+  background: #334155;
+  color: #e2e8f0;
   border-radius: 12px;
 }
 
 input {
-  padding: 8px 12px;
+  padding: 6px 12px;
   font-size: 16px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
@@ -54,7 +55,7 @@ li {
 
 li button {
   background: transparent;
-  color:  #dc2626;
+  color: #dc2626;
   font-weight: bold;
 }
 
@@ -64,11 +65,41 @@ li button:hover {
 
 h1 {
   font-size: 28px;
-  color: #111827;
+  color: #f8fafc;
   margin-top: 0;
+  text-align: center;
 }
 
 li div {
   display: flex;
   gap: 4px;
+}
+
+#filtros {
+  margin-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+
+body.claro {
+ background: #f3f4f6;
+}
+
+body.claro #app {
+  background: white;
+  color: #1f2937;
+}
+
+body.claro h1 {
+  color: #111827;
+}
+
+body.claro input {
+  background: white;
+  color: #111827;
+}
+
+body.claro li {
+  border-bottom: 1px solid #e5e7eb;
 }
