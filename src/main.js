@@ -7,13 +7,23 @@ document.querySelector("#app").innerHTML = `<h1>Minha Lista de Tarefas</h1>
   Adicionar
 </button>
 
+<div id="filtros">
+<button data-filtro="todas">Todas</button>
+<button data-filtro="pendentes">Pendentes</button>
+<button data-filtro="feitas">Feitas</button>
+</div>
+
+<p id="contador"></p>
+
 <ul id="lista"></ul>`;
 
 const campo = document.querySelector("#nova-tarefa");
 const botao = document.querySelector("#adicionar");
 const lista = document.querySelector("#lista");
+const contador = document.querySelector("#contador");
 
 let tarefas = [];
+let filtroAtual = "todas";
 
 function salvar() {
   localStorage.setItem("tarefas", JSON.stringify(tarefas));
@@ -29,7 +39,21 @@ console.log(tarefas);
 function mostrarTarefas() {
   lista.innerHTML = "";
 
-  tarefas.forEach((tarefa, posicao) => {
+  const totalFeitas = tarefas.filter((tarefa) => tarefa.feita).length;
+  contador.textContent = `${totalFeitas} de ${tarefas.length} feitas`;
+
+  const visiveis = tarefas.filter((tarefa) => {
+    if (filtroAtual === "pendentes") {
+      return !tarefa.feita;
+    }
+
+    if (filtroAtual === "feitas") {
+      return tarefa.feita;
+    }
+    return true;
+  });
+
+  visiveis.forEach((tarefa) => {
     const item = document.createElement("li");
     item.textContent = tarefa.texto;
 
@@ -74,7 +98,7 @@ function mostrarTarefas() {
     remover.textContent = "X";
     remover.addEventListener("click", (evento) => {
       evento.stopPropagation();
-      tarefas.splice(posicao, 1);
+      tarefas.splice(tarefas.indexOf(tarefa), 1);
       salvar();
       mostrarTarefas();
     });
@@ -110,4 +134,13 @@ campo.addEventListener("keydown", (evento) => {
   if (evento.key === "Enter") {
     adicionarTarefa();
   }
+});
+
+const botoesFiltro = document.querySelectorAll("#filtros button");
+
+botoesFiltro.forEach((botaoFiltro) => {
+  botaoFiltro.addEventListener("click", () => {
+    filtroAtual = botaoFiltro.dataset.filtro;
+    mostrarTarefas();
+  });
 });
