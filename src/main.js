@@ -58,6 +58,7 @@ function mostrarTarefas() {
   });
 }
 
+
 mostrarTarefas();
 
 botao.addEventListener("click", () => {
