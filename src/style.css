@@ -120,3 +120,33 @@ body.claro li {
   padding: 4px 0;
   font-size: 20px;
 }
+
+#calendario {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  padding: 12px 16px;
+  background: #334155;
+  color: #e2e8f0;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+#grade {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+#grade span {
+  padding: 4px;
+}
+
+#grade .hoje {
+  background: #256aeb;
+  color: white;
+  border-radius: 50%;
+}

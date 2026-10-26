@@ -145,14 +145,12 @@ botoesFiltro.forEach((botaoFiltro) => {
   });
 });
 
-
 const botaoTema = document.querySelector("#tema");
 
 function atualizarIcone() {
   const claro = document.body.classList.contains("claro");
   botaoTema.textContent = claro ? "🌞" : "🌛";
 }
-
 
 botaoTema.addEventListener("click", () => {
   document.body.classList.toggle("claro");
@@ -161,6 +159,44 @@ botaoTema.addEventListener("click", () => {
   atualizarIcone();
 });
 
-if(localStorage.getItem("tema") === "claro") {
+if (localStorage.getItem("tema") === "claro") {
   document.body.classList.add("claro");
 }
+
+
+function desenharCalendario() {
+  const hoje = new Date();
+  const ano = hoje.getFullYear();
+  const mes = hoje.getMonth();
+
+  const nomeMes = hoje.toLocaleDateString("pt-BR", {
+    month: "long",
+    year: "numeric",
+  });
+
+  const primeiroDia = new Date(ano, mes, 1).getDay();
+  const totalDias = new Date(ano, mes + 1, 0).getDate();
+
+  calendario.innerHTML = `<strong>${nomeMes}</strong>`;
+
+  const grade = document.createElement("div");
+  grade.id = "grade";
+
+  for (let i = 0; i < primeiroDia; i++) {
+    grade.appendChild(document.createElement("span"));
+  }
+
+  for (let dia = 1; dia <= totalDias; dia++) {
+    const celula = document.createElement("span");
+    celula.textContent = dia;
+
+    if (dia === hoje.getDate()) {
+      celula.classList.add("hoje");
+    }
+    grade.appendChild(celula);
+  }
+
+  calendario.appendChild(grade);
+}
+
+desenharCalendario();
